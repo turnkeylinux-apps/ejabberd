@@ -1,0 +1,7 @@
+Webchat:    http://$ipaddr
+            https://$ipaddr
+Web shell:  https://$ipaddr:12320
+Webmin:     https://$ipaddr:12321
+EJD Admin:  https://$ipaddr:12322
+SSH/SFTP:   root@$ipaddr (port 22)
+XMPP:       ports 5222 (plain/tls), 5223 (legacy ssl)

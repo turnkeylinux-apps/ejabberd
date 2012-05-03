@@ -1,0 +1,83 @@
+turnkey-ejabberd-11.1 (1) turnkey; urgency=low
+
+  * Set chat domain and admin password on firstboot (convenience, security).
+
+  * Set RE_XMPP_DOMAIN in config script dynamically (convenience).
+
+  * Bugfixed speeqe beta room uri (was pointing to alpha room).
+
+  * Set postfix MTA myhostname to localhost (bugfix).
+
+  * Major component versions:
+
+    ejabberd        2.1.2-2
+    speeqe          latest version downloaded on 2010-10-12
+    python-django   1.1.1-2ubuntu1
+    apache2         2.2.14-5ubuntu8.4
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Sun, 19 Dec 2010 15:01:05 +0200
+
+turnkey-ejabberd-2009.10 (2) hardy; urgency=low
+
+  * Installed all security updates (see manifest for package versions).
+
+  * Install security updates on firstboot (except when running live).
+
+  * Bugfix: Updated apt preferences for auto-security updates (LP#550307).
+
+  * Bugfix: Added python-imaging (recommended for speeqe).
+
+  * Trick webmin into not checking for upgrades (managed by apt).
+
+  * Included latest version of inithooks and updated scripts.
+
+  * Included wget as per common request.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Mon, 29 Mar 2010 09:02:11 +0200
+
+turnkey-ejabberd-2009.10 (1) hardy; urgency=low
+
+  * Initial public release of TurnKey ejabberd.
+
+  * SSL support out of the box.
+
+  * ejabberd configurations:
+
+    - Preconfigured with exemplary domain (example.com).
+    - Configured admin@example.com as registration watcher.
+    - Includes custom ejabberd-config script to change domain and set admin
+      password (included as part of installation).
+
+    - Enabled in-band user registration (usability, convenience).
+    - Enabled legacy SSL connection method (still required by some clients).
+    - Set erlang node: ejabberd@localhost (workaround mnesia hostname changes).
+    - Binded admin console to port 12322 - uses SSL.
+    - Enabled hardy-backports and pinned ejabberd for updates (security).
+
+  * speeqe configurations:
+
+    - Installed and configured to provide web chat interface.
+    - Configured ejabberd with anonymous access for speeqe to connect.
+    - Created ejabberd robot XMPP user for speeqe to list active rooms.
+    - Includes local JQuery library (internal deployment).
+
+  * Includes postfix MTA (bound to localhost) to allow sending of email from
+    speeqe. Also includes webmin-postfix module for convenience.
+
+  * Regenerates all secrets during installation / firstboot (security).
+
+  * Major component versions:
+
+    ejabberd            2.0.1-2~hardy1_i386.deb
+    speeqe              r71ddb704
+    python-pysqlite2    2.4.0-2build1
+    python-django       1.0.2-1+lenny1
+    apache2         	2.2.8-1ubuntu0.11
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Tue, 29 Sep 2009 15:39:41 +0200

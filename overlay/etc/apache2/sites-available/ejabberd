@@ -1,0 +1,27 @@
+NameVirtualHost *:12322
+
+<VirtualHost *:12322>
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/cert.pem
+    ServerAdmin  webmaster@localhost
+
+    RedirectMatch ^/$ /admin
+
+    <Location "/admin">
+        ProxyPass http://localhost:5280/admin/
+        ProxyPassReverse http://localhost:5280/admin/
+    </Location>
+
+    <Proxy *>
+        Allow from all
+    </Proxy>
+
+    Alias /docs /usr/share/doc/ejabberd
+    <Directory /usr/share/doc/ejabberd>
+        DirectoryIndex guide.html
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+

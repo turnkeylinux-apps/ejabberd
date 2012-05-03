@@ -1,0 +1,45 @@
+NameVirtualHost *:80
+NameVirtualHost *:443
+
+<VirtualHost *:80>
+    UseCanonicalName Off
+    ServerAdmin  webmaster@localhost
+    DocumentRoot /var/www/django/speeqeweb/webroot
+</VirtualHost>
+
+<VirtualHost *:443>
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/cert.pem
+    ServerAdmin  webmaster@localhost
+    DocumentRoot /var/www/django/speeqeweb/webroot
+</VirtualHost>
+
+<Directory />
+    Options -Indexes All
+</Directory>
+
+<Location "/http-bind">
+    ProxyPass http://localhost:5280/http-bind/
+    ProxyPassReverse http://localhost:5280/http-bind/
+</Location>
+
+<Proxy *>
+    Allow from all
+</Proxy>
+
+<Location "/">
+    SetHandler python-program
+    PythonHandler django.core.handlers.modpython
+    SetEnv DJANGO_SETTINGS_MODULE speeqeweb.settings
+    PythonDebug On
+    PythonPath "['/var/www/django','/var/www/django/speeqeweb'] + sys.path"
+</Location>
+
+<Location "/admin_media">
+    SetHandler None
+</Location>
+
+<Location "/docs">
+    SetHandler None
+</Location>
+

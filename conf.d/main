@@ -19,20 +19,10 @@ tar -zxf $SRC/punjab.tar.gz -C $SRC
 
 mkdir -p $DJANGO_DIR
 cp -a $SRC/speeqe/speeqeweb $SPEEQE_DIR
-cp -a $SRC/speeqe/speeqewebclient $SPEEQE_DIR/webroot/
 chown -R root:root $SPEEQE_DIR
 
 ln -fs /etc/speeqe/settings.py $SPEEQE_DIR/settings.py
-ln -s /etc/speeqe/local_settings.js $SPEEQE_DIR/webroot/speeqewebclient/scripts/local_settings.js
-
-# use local jquery instead of pulling from google
-cp $SRC/jquery.min.js.gz $SPEEQE_DIR/webroot/js/
-gzip -d $SPEEQE_DIR/webroot/js/jquery.min.js.gz
-
-for f in base.html autologinclient.html; do
-    FILE=$SPEEQE_DIR/templates/$f
-    sed -i "s|http://ajax.googleapis.com/ajax/libs/jquery/1.2.6|/js|" $FILE
-done
+ln -s /etc/speeqe/local_settings.js $SPEEQE_DIR/webroot/scripts/local_settings.js
 
 # install punjab (speeqe dep)
 cd $SRC/punjab
@@ -44,8 +34,7 @@ $SPEEQE_DIR/manage.py syncdb --noinput
 chown -R www-data:www-data /var/lib/sqlite
 
 # setup admin media for django
-ln -s /usr/share/python-support/python-django/django/contrib/admin/media/ \
-    $SPEEQE_DIR/webroot/admin_media
+ln -s /usr/share/pyshared/django/contrib/admin/media/ $SPEEQE_DIR/webroot/admin_media
 
 # configure speeqe log
 mkdir -p /var/log/speeqe

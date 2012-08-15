@@ -36,6 +36,10 @@ chown -R www-data:www-data /var/lib/sqlite
 # setup admin media for django
 ln -s /usr/share/pyshared/django/contrib/admin/media/ $SPEEQE_DIR/webroot/admin_media
 
+# bugfix: jquery symlink instead of hacking source
+cd $SPEEQE_DIR/webroot/scripts
+ln -s jquery-1.4.4.min.js jquery-1.4.4.js
+
 # configure speeqe log
 mkdir -p /var/log/speeqe
 chown www-data:www-data /var/log/speeqe

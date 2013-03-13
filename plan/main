@@ -15,5 +15,7 @@ libjs-jquery
 python-twisted          /* speeqe dependency */
 python-imaging          /* speeqe recommends */
 
+patch
+
 postfix
 webmin-postfix

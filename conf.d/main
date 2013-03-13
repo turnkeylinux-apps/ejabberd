@@ -18,9 +18,13 @@ chown -R root:root $WEBROOT
 mkdir -p /etc/speeqe
 mv $PATCHES/settings.py /etc/speeqe/settings.py
 mv $PATCHES/local_settings.js /etc/speeqe/local_settings.js
+mv $PATCHES/botbg.jpg $WEBROOT/webroot/images/default_theme/botbg.jpg
 
 ln -fs /etc/speeqe/settings.py $WEBROOT/settings.py
 ln -s /etc/speeqe/local_settings.js $WEBROOT/webroot/scripts/local_settings.js
+
+patch $WEBROOT/templates/index.html $PATCHES/index.html.diff
+patch $WEBROOT/webroot/client.html $PATCHES/client.html.diff
 
 JQUERY=$(basename $SCRIPTS/jquery-*.min.js)
 ln -s $JQUERY $SCRIPTS/$(echo $JQUERY | sed "s|min.||")

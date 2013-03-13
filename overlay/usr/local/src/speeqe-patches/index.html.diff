@@ -1,0 +1,13 @@
+--- index.html.orig	2013-03-13 12:16:31.000000000 +0000
++++ index.html	2013-03-13 12:16:57.000000000 +0000
+@@ -22,8 +22,9 @@
+     <input type='image' src='/images/go.png' id="go" class="go" />
+   </form>
+ </div>
++</div>
+ 
+-<div class="createright">
++<div class="createright" style="float:right">
+ <a href="/accounts/login/">
+ <h3>works with...</h3>
+ 

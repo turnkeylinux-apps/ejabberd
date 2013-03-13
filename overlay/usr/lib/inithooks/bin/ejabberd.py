@@ -64,7 +64,7 @@ def main():
             "Ejabberd Password",
             "Enter new password for ejabberd 'admin@%s' account." % domain)
 
-    command = ["/usr/local/bin/ejabberd-config", domain, password]
+    command = ["/usr/lib/inithooks/bin/ejabberd.sh", domain, password]
     p = subprocess.Popen(command, stdin=PIPE, stdout=PIPE, shell=False)
     stderr = p.wait()
     if stderr:

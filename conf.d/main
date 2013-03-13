@@ -1,48 +1,45 @@
 #!/bin/sh -ex
 
-XMPP_DOMAIN=example.com
-ADMIN_PASS=turnkey
-
-# workaround mnesia issues if hostname changes
-echo "ERLANG_NODE=ejabberd@localhost" >> /etc/default/ejabberd
-
-/usr/local/bin/ejabberd-config $XMPP_DOMAIN $ADMIN_PASS
-
-# speeqe django configuration
+## speeqe
 SRC=/usr/local/src
-DJANGO_DIR=/var/www/django
-SPEEQE_DIR=$DJANGO_DIR/speeqeweb
-
-# unpack and configure speeqe
-tar -zxf $SRC/speeqe.tar.gz -C $SRC
-tar -zxf $SRC/punjab.tar.gz -C $SRC
-
-mkdir -p $DJANGO_DIR
-cp -a $SRC/speeqe/speeqeweb $SPEEQE_DIR
-chown -R root:root $SPEEQE_DIR
-
-ln -fs /etc/speeqe/settings.py $SPEEQE_DIR/settings.py
-ln -s /etc/speeqe/local_settings.js $SPEEQE_DIR/webroot/scripts/local_settings.js
+PATCHES=$SRC/speeqe-patches
+WEBROOT=/var/www/django/speeqeweb
+SCRIPTS=$WEBROOT/webroot/scripts
 
 # install punjab (speeqe dep)
 cd $SRC/punjab
 python setup.py install
 
-# sync database
+# configure and patch speeqeweb
+mkdir -p $(dirname $WEBROOT)
+mv $SRC/speeqe/speeqeweb $WEBROOT
+chown -R root:root $WEBROOT
+
+mkdir -p /etc/speeqe
+mv $PATCHES/settings.py /etc/speeqe/settings.py
+mv $PATCHES/local_settings.js /etc/speeqe/local_settings.js
+
+ln -fs /etc/speeqe/settings.py $WEBROOT/settings.py
+ln -s /etc/speeqe/local_settings.js $WEBROOT/webroot/scripts/local_settings.js
+
+JQUERY=$(basename $SCRIPTS/jquery-*.min.js)
+ln -s $JQUERY $SCRIPTS/$(echo $JQUERY | sed "s|min.||")
+
+ln -s /usr/share/pyshared/django/contrib/admin/media/ $WEBROOT/webroot/admin_media
+
 mkdir -p /var/lib/sqlite
-$SPEEQE_DIR/manage.py syncdb --noinput
+$WEBROOT/manage.py syncdb --noinput
 chown -R www-data:www-data /var/lib/sqlite
 
-# setup admin media for django
-ln -s /usr/share/pyshared/django/contrib/admin/media/ $SPEEQE_DIR/webroot/admin_media
-
-# bugfix: jquery symlink instead of hacking source
-cd $SPEEQE_DIR/webroot/scripts
-ln -s jquery-1.4.4.min.js jquery-1.4.4.js
-
-# configure speeqe log
 mkdir -p /var/log/speeqe
 chown www-data:www-data /var/log/speeqe
+
+## ejabberd
+XMPP_DOMAIN=example.com
+ADMIN_PASS=turnkey
+
+echo "ERLANG_NODE=ejabberd@localhost" >> /etc/default/ejabberd
+/usr/lib/inithooks/bin/ejabberd.sh $XMPP_DOMAIN $ADMIN_PASS
 
 # apache configuration
 echo Listen 12322 >> /etc/apache2/ports.conf
@@ -56,5 +53,4 @@ a2enmod proxy_http
 
 # cleanup
 rm -rf $SRC/*
-
 

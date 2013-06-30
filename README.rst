@@ -51,14 +51,6 @@ and on top of that:
 
     /etc/hosts : appliance_ip example.com
 
-- Known issue: speeqe is configured to be served on chat.XMPP_DOMAIN
-  where it should be XMPP_DOMAIN::
-
-    /etc/speeqe/settings.py
-    -HTTP_DOMAIN = "chat.yourdomain.com"
-    +HTTP_DOMAIN = "yourdomain.com"
-    service apache2 restart
-
 - Recommended XMPP chat clients:
    
    - `Gajim`_ - a full featured and easy to use Jabber client

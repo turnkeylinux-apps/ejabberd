@@ -9,12 +9,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = '/var/lib/sqlite/speeqe.db'
-DATABASE_USER = ''
-DATABASE_PASSWORD = ''
-DATABASE_HOST = ''                    # Set to empty string for localhost.
-DATABASE_PORT = ''                    # Set to empty string for default.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/var/lib/sqlite/speeqe.db',
+        'USER': '',
+        'PASSWORD': '',
+    }
+}
 
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
@@ -71,7 +73,7 @@ LOG_ROOT = '/var/log/speeqe'
 
 # Exact and matching words to/in usernames to reject
 EXACT_BAD_WORDS = ['']
-MATCH_BAD_WORDS = [''] 
+MATCH_BAD_WORDS = ['']
 
 # Robot user to list active rooms from the muc component (disco requests)
 XMPP_USER = 'robot@example.com'

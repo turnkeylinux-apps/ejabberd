@@ -28,8 +28,10 @@ SECRET_KEY = '2n0d+c94i^@$+dsx7@t0d-_at=p@lyk8f23&bn3m$s6e8or)x4'
 ADMIN_MEDIA_PREFIX = '/admin_media/'
 
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
 )
 
 MIDDLEWARE_CLASSES = (

@@ -38,7 +38,7 @@ and on top of that:
 - Includes custom ejabberd-config script to change domain,
   administrative password and regenerate related secrets::
 
-    /usr/local/bin/ejabberd-config XMPP_DOMAIN ADMIN_PASS
+    /usr/lib/inithooks/bin/ejabberd.sh XMPP_DOMAIN ADMIN_PASS
     # ejabberd admin interface user will be: admin@XMPP_DOMAIN
 
 - XMPP DNS records example::

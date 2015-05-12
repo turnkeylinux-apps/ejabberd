@@ -78,7 +78,7 @@ Credentials *(passwords set at first boot)*
 
 
 .. _ejabberd: http://www.ejabberd.im
-.. _Speeqe: http://code.stanziq.com/speeqe
+.. _Speeqe: https://github.com/thepug/speeqe/wiki
 .. _TurnKey Core: http://www.turnkeylinux.org/core
 .. _Gajim: http://www.gajim.org/
 .. _Pidgin: http://www.pidgin.im/

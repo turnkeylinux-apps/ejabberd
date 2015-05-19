@@ -48,7 +48,7 @@ echo "ERLANG_NODE=ejabberd@localhost" >> /etc/default/ejabberd
 
 # apache configuration
 echo Listen 12322 >> /etc/apache2/ports.conf
-a2dissite default
+a2dissite 000-default
 a2ensite speeqeweb
 a2ensite ejabberd
 
